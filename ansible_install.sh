@@ -12,4 +12,5 @@ sed -i 's/;host_key_checking=True/host_key_checking=False/' /etc/ansible/ansible
 #mv /home/ubuntu/ansible_key /home/ubuntu/vprofile/exercise1/ansible_key
 #chmod 400 /home/ubuntu/vprofile/exercise1/ansible_key
 chown -R ubuntu:ubuntu /home/ubuntu/ansible_conf/
+chmod 400 /home/ubuntu/.ssh/ansible_key
 rm -rf ansible_conf.zip

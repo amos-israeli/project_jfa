@@ -63,7 +63,7 @@ resource "aws_instance" "control" { #the ansible vm
 
   provisioner "file" { #copy the privet key
     source      = "../keys/ansible_key"
-    destination = "/home/ubuntu/ansible_key"
+    destination = "/home/ubuntu/.ssh/ansible_key"
 
   }
 
