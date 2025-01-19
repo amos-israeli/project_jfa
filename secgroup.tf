@@ -1,5 +1,5 @@
 data "external" "myipaddr" {
-program = ["bash", "-c", "curl -s 'https://api.ipify.org?format=json'"]
+  program = ["bash", "-c", "curl -s 'https://api.ipify.org?format=json'"]
 }
 
 
@@ -50,7 +50,7 @@ resource "aws_security_group" "client_sg" { #web and db vm security group
 
 
 #ansible vm security group
-resource "aws_security_group" "control_sg" { 
+resource "aws_security_group" "control_sg" {
   name        = "control_sg"
   description = "allow ssh from my ip "
   tags = {
