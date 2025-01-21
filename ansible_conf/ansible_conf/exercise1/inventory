@@ -2,11 +2,11 @@
 all:
   hosts:
     web01:
-      ansible_host: 172.31.10.244
+      ansible_host: 172.31.3.175
     web02:
-      ansible_host: 172.31.15.87
+      ansible_host: 172.31.11.175
     db01:
-      ansible_host: 172.31.4.191
+      ansible_host: 172.31.3.180
 
   children:
     webservers:
@@ -23,4 +23,6 @@ all:
       vars:
         ansible_ssh_private_key_file: ~/.ssh/ansible_key
         ansible_user: ec2-user
-     
+
+
+

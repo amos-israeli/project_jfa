@@ -3,7 +3,10 @@
 apt update
 apt install software-properties-common -y
 add-apt-repository --yes --update ppa:ansible/ansible
-apt install unzip ansible -y
+apt install unzip ansible git python3-pip -y
+sudo apt-get update && sudo apt-get install python3-dev default-libmysqlclient-dev build-essential -y
+
+ansible-galaxy collection install community.mysql
 
 
 unzip /home/ubuntu/ansible_conf.zip -d ansible_conf
