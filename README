@@ -1,4 +1,4 @@
 this configuration is for demonstration, the best practice is to work with custom ami
 right now changing the permission of the key to 400 and adding the ip munaly to the inventory file after deployment is needed.
  it will be fixed soon
- you need to add your one privet key to ../keys
+ you need to add your one privet key to ../keys for ssh to the ec2s
