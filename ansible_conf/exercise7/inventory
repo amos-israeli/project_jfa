@@ -6,7 +6,7 @@ all:
     web02:
       ansible_host: 172.31.3.197
     db01:
-      ansible_host: 172.31.15.87
+      ansible_host: 3.235.15.244
 
   children:
     webservers:
