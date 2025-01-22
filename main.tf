@@ -23,6 +23,19 @@ resource "aws_instance" "web02" {
 }
 
 
+
+resource "aws_instance" "web03" {
+  ami                    = data.aws_ami.ubuntu.id
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = [aws_security_group.client_sg.id]
+  availability_zone      = "us-east-1a"
+  key_name               = aws_key_pair.ansible_key.key_name
+  tags = {
+    Name = "web03"
+  }
+}
+
+
 resource "aws_instance" "db" {
   ami                    = data.aws_ami.centos_9.id
   instance_type          = "t2.micro"

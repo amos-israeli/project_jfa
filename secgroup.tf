@@ -17,13 +17,22 @@ resource "aws_security_group" "client_sg" { #web and db vm security group
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
+  ingress { #allow ssh from control sg
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
     cidr_blocks     = ["0.0.0.0/0"]
     security_groups = [aws_security_group.control_sg.id]
   }
+
+    ingress { #allow ssh from my ip
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${data.external.myipaddr.result.ip}/32"]
+
+  }
+
 
   ingress {
     from_port   = 80
