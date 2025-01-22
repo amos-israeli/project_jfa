@@ -1,0 +1,21 @@
+- name: find old tmp files and delete them
+  hosts: webservers
+  tasks:
+
+    - name: Recursively find /tmp files older than 2 days
+      find:
+        paths: /tmp
+        #age: 1d
+        recurse: yes
+      register: old_files
+     
+    - name:  print file name
+      debug: 
+        var: old_files.files
+
+
+
+        #    - name: delete the old files
+        # ansible.builtin.file:
+        #path: /tmp/"{{old_files.}}"
+        #state: absent

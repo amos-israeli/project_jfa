@@ -1,9 +1,9 @@
 - name: Understanding vars
   hosts: all
   become: yes
-  vars:
-    USRNM: playuser
-    COMM: playname
+  #vars:
+          #USRNM: playuser
+          # COMM: playname
   tasks: 
     - name: create user
       ansible.builtin.user:
@@ -12,5 +12,5 @@
       register: usrout
 
     - debug:
-        var: usrout.comment
+        var: usrout.name
 
