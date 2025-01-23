@@ -48,13 +48,6 @@ resource "aws_instance" "db" {
   }
 }
 
-# Archive the ansible configuration
-
-data "archive_file" "ansible_conf" {
-  type        = "zip"
-  source_dir  = "${path.module}/ansible_conf/"
-  output_path = "${path.module}/ansible_conf.zip"
-}
 
 resource "aws_instance" "control" { #the ansible vm
   ami                    = data.aws_ami.ubuntu.id
@@ -68,9 +61,9 @@ resource "aws_instance" "control" { #the ansible vm
 
 
 
-  provisioner "file" { #copy the ansible configuration
-    source      = "ansible_conf.zip"
-    destination = "/home/ubuntu/ansible_conf.zip"
+  provisioner "file" { #copy the ssh config file
+    source      = "control_files/config"
+    destination = "/home/ubuntu/.ssh/config"
 
   }
 
@@ -78,6 +71,12 @@ resource "aws_instance" "control" { #the ansible vm
     source      = "../keys/ansible_key"
     destination = "/home/ubuntu/.ssh/ansible_key"
 
+  }
+
+
+  provisioner "file" { #copy the privet key
+    source      = "../keys/git_ansible"
+    destination = "/home/ubuntu/.ssh/git_ansible"
   }
 
   provisioner "file" {
@@ -126,6 +125,10 @@ resource "null_resource" "script_tracker" {
 }
 
 
+
+output "db_privet_ip_addr" {
+  value = aws_instance.db.private_ip
+}
 output "control_ip_addr" {
   value = aws_instance.control.public_ip
 }
@@ -135,6 +138,7 @@ output "web01_privet_ip_addr" {
 output "web02_privet_ip_addr" {
   value = aws_instance.web02.private_ip
 }
-output "db_privet_ip_addr" {
-  value = aws_instance.db.private_ip
+
+output "web03_privet_ip_addr" {
+  value = aws_instance.web03.private_ip
 }

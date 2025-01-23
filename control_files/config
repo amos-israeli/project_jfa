@@ -1,0 +1,4 @@
+Host github.com
+    IdentityFile ~/.ssh/git_ansible
+    User git
+    IdentitiesOnly yes

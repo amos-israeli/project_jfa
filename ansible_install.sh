@@ -33,7 +33,17 @@ chmod 400 /home/ubuntu/.ssh/git_ansible
 git-clone@ubuntu:~$ git config --global user.email "ubuntu@amos.com"
 git config --global user.name "amos"
 git clone https://github.com/t954/project_jfa.git /home/ubuntu/project_jfa
-ln -s project_jfa/ansible_conf/
+sudo chown -R ubuntu:ubuntu /home/ubuntu/project_jfa/
+cd /home/ubuntu/project_jfa/ || { echo "Failure in cd"; exit 1; }
+git remote set-url origin git@github.com:t954/project_jfa.git
+
+ln -s project_jfa/ansible_conf/ /home/ubuntu/ansible_conf_link
+##install plugins for vim
+#indinintation plugin 
+git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
+
+
 
 
 
