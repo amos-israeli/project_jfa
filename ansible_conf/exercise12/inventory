@@ -2,16 +2,16 @@
 all:
   hosts:
     web01:
-      ansible_host: 172.31.5.70
+      ansible_host: "{{web01}}"
     web02:
-      ansible_host: 172.31.8.59
+      ansible_host: "{{web02}}"
 
     web03:
-      ansible_host: 172.31.6.134
+      ansible_host: "{{web03}}"
       ansible_user: ubuntu
 
     db01:
-      ansible_host: 172.31.12.240
+      ansible_host: "{{db01}}"
 
   children:
     webservers:

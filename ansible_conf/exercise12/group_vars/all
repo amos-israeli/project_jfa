@@ -1,0 +1,13 @@
+dbname: sky
+dbuser: pilot
+dbpass: aircraft
+ntp0: 0.us.pool.ntp.org
+ntp1: 1.us.pool.ntp.org
+ntp2: 2.us.pool.ntp.org
+ntp3: 3.us.pool.ntp.org
+
+
+web01: 172.31.5.70
+web02: 172.31.8.59
+web03: 172.31.6.134
+db01: 172.31.12.240
