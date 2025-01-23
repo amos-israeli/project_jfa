@@ -1,0 +1,84 @@
+---
+- name: provison
+  hosts: all
+  tasks:   
+
+  - name: yum install chrony
+    ansible.builtin.yum:
+      name: chrony
+      state: present
+    when: ansible_distribution == "CentOS" 
+
+  - name: enable chronyd service
+    ansible.builtin.service:
+      state: started
+      enabled: true
+      name: chronyd
+    when: ansible_distribution == "CentOS" 
+
+  - name: apt install ntp on ubuntu vms
+    ansible.builtin.apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: true 
+    when: ansible_distribution == "Ubuntu"
+    loop:
+      - ntp
+      - python3-apt
+
+  - name: enable ntp service on ubuntu vms
+    ansible.builtin.service:
+      state: started
+      enabled: true
+      name: ntp
+    when: ansible_distribution == "Ubuntu" 
+
+  - name: add users to the ubuntu vms
+    ansible.builtin.user:
+      name: "{{ item.name }}"
+      comment: "{{ item.comment }}"
+      #group: developers
+      create_home: yes
+    when: ansible_distribution == "Ubuntu"
+    loop: 
+      - { name: "amos", comment: "amos_comment"}
+      - { name: "shira", comment: "shira_comment"}
+      - { name: "tamar", comment: "tamar_comment"}
+      - { name: "goni", comment: "goni_comment"}
+
+  - name: adding /etc/motd
+    copy:
+      content: 'this server is managed by ansible, no manual changes plase:)'
+      dest: /etc/motd
+
+  - name: Template a file to /etc/chrony.conf
+    ansible.builtin.template:
+      src: templates/ntp_conf_centos
+      dest: /etc/chrony.conf
+      backup: yes
+    when: ansible_distribution == "CentOS"
+    notify: 
+      - restart service on centos
+
+  - name: Template a file to /etc/ntp.conf
+    ansible.builtin.template:
+        src: templates/ntp_conf_ubuntu
+        dest: /etc/ntp.conf
+        backup: yes
+    when: ansible_distribution == "Ubuntu"
+    notify:
+      - restart service on ubuntu
+  
+  handlers:
+
+  - name: restart service on ubuntu
+    ansible.builtin.service:
+      state: restarted
+      name: ntp
+    when: ansible_distribution == "Ubuntu"
+
+  - name: restart service on centos
+    ansible.builtin.service:
+      state: restarted
+      name: chronyd
+    when: ansible_distribution == "CentOS"
