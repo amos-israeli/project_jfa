@@ -1,0 +1,14 @@
+---
+#handlersfile for post_install
+
+- name: restart service on ubuntu
+  ansible.builtin.service:
+    state: restarted
+    name: ntp
+  when: ansible_distribution == "Ubuntu"
+
+- name: restart service on centos
+  ansible.builtin.service:
+    state: restarted
+    name: chronyd
+  when: ansible_distribution == "CentOS"

@@ -1,0 +1,32 @@
+
+all:
+  hosts:
+    web01:
+      ansible_host: "{{web01}}"
+    web02:
+      ansible_host: "{{web02}}"
+
+    web03:
+      ansible_host: "{{web03}}"
+      ansible_user: ubuntu
+
+    db01:
+      ansible_host: "{{db01}}"
+
+  children:
+    webservers:
+      hosts:
+        web01:
+        web02:
+        web03:
+    dbservers:
+      hosts:
+        db01:
+    dc_oregon:
+      children:
+        webservers:
+        dbservers:
+      vars:
+        ansible_ssh_private_key_file: ~/.ssh/ansible_key
+        ansible_user: ec2-user
+     

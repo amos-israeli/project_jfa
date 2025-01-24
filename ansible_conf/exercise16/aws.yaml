@@ -1,0 +1,40 @@
+- hosts: localhost
+  gather_facts: False
+  tasks:
+
+  - name: create a new EC2 key pair, returns generated private key
+    amazon.aws.ec2_key:
+      name: ec2_web_key
+      region: us-east-1
+   #no_log: true
+    register: keyout
+
+    #  - name: print privet key
+    #    debug:
+    #      var: keyout
+
+  - name: insert the privat key to file 
+    ansible.builtin.copy:
+      content: "{{keyout.key.private_key}}"
+      dest: ~/.ssh/web_ec2_key.pem
+    when: keyout.changed
+
+  - name: Provision an EC2 instance
+    amazon.aws.ec2_instance:
+      name: ansible_ec2
+      key_name: "ec2_web_key"
+      instance_type: t2.micro
+      region: us-east-1
+      security_group: sg-08ac5702724884709
+      image_id: ami-04b4f1a9cf54c11d0
+      exact_count: 1
+      wait: true
+      tags:
+        Environment: Testing
+        Name: ansible_ec2
+        #register: resulit
+
+
+
+
+

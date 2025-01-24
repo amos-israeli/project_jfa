@@ -1,0 +1,16 @@
+---
+# defaults file for post_install
+dbname: sky
+dbuser: pilot
+dbpass: aircraft
+ntp0: 0.us.pool.ntp.org
+ntp1: 1.us.pool.ntp.org
+ntp2: 2.us.pool.ntp.org
+ntp3: 3.us.pool.ntp.org
+
+dir22path: /opt/dir22
+
+web01: 172.31.11.232
+web02: 172.31.13.224
+web03: 172.31.12.170
+db01: 172.31.13.186
