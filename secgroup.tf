@@ -25,7 +25,7 @@ resource "aws_security_group" "client_sg" { #web and db vm security group
     security_groups = [aws_security_group.control_sg.id]
   }
 
-    ingress { #allow ssh from my ip
+  ingress { #allow ssh from my ip
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
