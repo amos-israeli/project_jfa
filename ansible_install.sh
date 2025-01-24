@@ -5,6 +5,7 @@ apt install software-properties-common -y
 add-apt-repository --yes --update ppa:ansible/ansible
 apt install unzip ansible git python3-pip tree -y
 sudo apt-get update && sudo apt-get install python3-dev default-libmysqlclient-dev build-essential -y
+pip3 install boto3
 ansible-galaxy collection install community.mysql # the community.mysql ansible modol
 
 
@@ -37,11 +38,14 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/project_jfa/
 cd /home/ubuntu/project_jfa/ || { echo "Failure in cd"; exit 1; }
 git remote set-url origin git@github.com:t954/project_jfa.git
 
-ln -s project_jfa/ansible_conf/ /home/ubuntu/ansible_conf_link
+
+ln -s project_jfa/ansible_conf/ /home/ubuntu/ansible_conf_link 
+
 ##install plugins for vim
 #indinintation plugin 
-git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
-vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
+#not working and installing on root
+#git clone https://github.com/Yggdroot/indentLine.git ~/.vim/pack/vendor/start/indentLine
+#vim -u NONE -c "helptags  ~/.vim/pack/vendor/start/indentLine/doc" -c "q"
 
 
 
