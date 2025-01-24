@@ -9,6 +9,10 @@ resource "aws_instance" "web01" {
     Name = "web01"
   }
 }
+resource "aws_ec2_instance_state" "web01" {
+  instance_id = aws_instance.web01.id
+  state       = var.state.web01
+}
 
 resource "aws_instance" "web02" {
   ami                    = data.aws_ami.centos_9.id
@@ -21,7 +25,10 @@ resource "aws_instance" "web02" {
     Name = "web02"
   }
 }
-
+resource "aws_ec2_instance_state" "web02" {
+  instance_id = aws_instance.web02.id
+  state       = var.state.web02
+}
 
 
 resource "aws_instance" "web03" {
@@ -34,9 +41,13 @@ resource "aws_instance" "web03" {
     Name = "web03"
   }
 }
+resource "aws_ec2_instance_state" "web03" {
+  instance_id = aws_instance.web03.id
+  state       = var.state.web03
+}
 
 
-resource "aws_instance" "db" {
+resource "aws_instance" "db01" {
   ami                    = data.aws_ami.centos_9.id
   instance_type          = "t2.micro"
   vpc_security_group_ids = [aws_security_group.client_sg.id]
@@ -46,6 +57,10 @@ resource "aws_instance" "db" {
   tags = {
     Name = "db"
   }
+}
+resource "aws_ec2_instance_state" "db01" {
+  instance_id = aws_instance.db01.id
+  state       = var.state.db01
 }
 
 
@@ -67,14 +82,14 @@ resource "aws_instance" "control" { #the ansible vm
 
   }
 
-  provisioner "file" { #copy the privet key
+  provisioner "file" { #copy ssh privet key for use by ansible
     source      = "../keys/ansible_key"
     destination = "/home/ubuntu/.ssh/ansible_key"
 
   }
 
 
-  provisioner "file" { #copy the privet key
+  provisioner "file" { #copy the privet git key
     source      = "../keys/git_ansible"
     destination = "/home/ubuntu/.ssh/git_ansible"
   }
@@ -116,6 +131,11 @@ resource "aws_instance" "control" { #the ansible vm
 
 }
 
+resource "aws_ec2_instance_state" "control" {
+  instance_id = aws_instance.control.id
+  state       = var.state.control
+}
+
 
 
 resource "null_resource" "script_tracker" {
@@ -127,7 +147,7 @@ resource "null_resource" "script_tracker" {
 
 
 output "db_privet_ip_addr" {
-  value = aws_instance.db.private_ip
+  value = aws_instance.db01.private_ip
 }
 output "control_ip_addr" {
   value = aws_instance.control.public_ip
@@ -142,3 +162,4 @@ output "web02_privet_ip_addr" {
 output "web03_privet_ip_addr" {
   value = aws_instance.web03.private_ip
 }
+
