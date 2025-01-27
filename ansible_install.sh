@@ -6,7 +6,7 @@ add-apt-repository --yes --update ppa:ansible/ansible
 apt install unzip ansible git python3-pip tree -y
 sudo apt-get update && sudo apt-get install python3-dev default-libmysqlclient-dev build-essential -y
 pip3 install boto3
-ansible-galaxy collection install community.mysql # the community.mysql ansible modol
+#ansible-galaxy collection install community.mysql # the community.mysql ansible module
 
 
 
@@ -17,7 +17,7 @@ chown ubuntu:ubuntu /var/log/ansible.log
 
 
 
-unzip /home/ubuntu/ansible_conf.zip -d ansible_conf
+#unzip /home/ubuntu/ansible_conf.zip -d ansible_conf
 ansible-config init --disabled -t all >/etc/ansible/ansible.cfg
 # allow ssh without beeing in the known hosts
 sed -i 's/;host_key_checking=True/host_key_checking=False/' /etc/ansible/ansible.cfg 
